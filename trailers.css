@@ -19,7 +19,7 @@ body {
 /* Hero Section */
 .hero {
     position: relative;
-    background: linear-gradient(to right, #510000, #ca2424, #510000);
+    background: linear-gradient(to right, #330101, #ca2424, #330101);
     color: white;
     overflow: hidden;
 }
@@ -49,7 +49,7 @@ body {
     font-weight: 700;
     line-height: 1;
     margin-bottom: 24px;
-    background: linear-gradient(to right, #00ddff, #acf1ff, #00566e);
+    background: linear-gradient(to right, #ff5858, #ff5555, #ff5858);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -92,16 +92,17 @@ body {
     border-radius: 25px;
     border-width: 3px;
     padding: 5px;
-    border-color: #969696;
-    background-color: #d7d6d6;
+    border-color: #b44141;
+    background-color: #d86969;
     color: #fefefe;
     text-decoration: none;
-    transition: all .25s ease;
+    transition: all .3s ease;
 }
 
 .trailer-section:hover {
-    border-color: #a2daff;
-    background-color: #d0ecff;
+    padding: 7.5px;
+    border-color: #db2d2d;
+    background-color: #ff5959;
     text-decoration: none;
 }
 
