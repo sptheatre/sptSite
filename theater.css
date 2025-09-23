@@ -95,7 +95,7 @@ body {
     background-color: #a9dafa;
     color: #fefefe;
     text-decoration: none;
-    transition: all .3s ease;
+    transition: all .2s ease;
 }
 
 .trailer-section:hover {
@@ -379,4 +379,28 @@ body {
     padding: 8px;
     background-color: #bf72ff;
     border-color: #8e04ff;
+}
+
+.navbar ul{
+    list-style-type: none;
+    background-color: #2b2b2b;
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+}
+
+.navbar a{
+    color: #ffffff;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+    text-align: center;
+}
+
+.navbar a:hover{
+    background-color: #1b1b1b;
+}
+
+.navbar li{
+    float: left;
 }

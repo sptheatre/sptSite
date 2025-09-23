@@ -9,7 +9,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.5;
     color: #0f172a;
-    background-color: #ffffff;
+    background-color: #f0f0f0;
 }
 
 .page {
@@ -19,7 +19,7 @@ body {
 /* Hero Section */
 .hero {
     position: relative;
-    background: linear-gradient(to right, #330101, #ca2424, #330101);
+    background: linear-gradient(to right, #000000, #00ccff, #000000);
     color: white;
     overflow: hidden;
 }
@@ -49,7 +49,7 @@ body {
     font-weight: 700;
     line-height: 1;
     margin-bottom: 24px;
-    background: linear-gradient(to right, #ff5858, #ff5555, #ff5858);
+    background: linear-gradient(to right, #00ddff, #ffffff, #00ddff);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -66,7 +66,7 @@ body {
 /* Shows Section */
 .shows-section {
     padding: 64px 0;
-    background-color: #ffbdbd;
+    background-color: #f0f0f0;
 }
 
 .container {
@@ -90,19 +90,18 @@ body {
     line-height: 1.11;
     border-style: solid;
     border-radius: 25px;
-    border-width: 3px;
     padding: 5px;
-    border-color: #b44141;
-    background-color: #d86969;
+    border-color: #72c6ff;
+    background-color: #a9dafa;
     color: #fefefe;
     text-decoration: none;
-    transition: all .2s ease;
+    transition: all .3s ease;
 }
 
 .trailer-section:hover {
     padding: 7.5px;
-    border-color: #db2d2d;
-    background-color: #ff5959;
+    border-color: #14a1ff;
+    background-color: #53baff;
     text-decoration: none;
 }
 
@@ -117,15 +116,15 @@ body {
 /* Show Cards */
 .show-card {
     background: white;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #c5c5c5;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.185);
     transition: box-shadow 0.15s ease;
 }
 
 .show-card:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.445);
 }
 
 .card-image {
@@ -379,7 +378,7 @@ body {
 .feedback:hover {
     padding: 8px;
     background-color: #bf72ff;
-    border-color: #8c00ff;
+    border-color: #8e04ff;
 }
 
 .navbar ul{
