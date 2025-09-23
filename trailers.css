@@ -364,3 +364,20 @@ body {
 .text-decor {
     text-decoration: none;
 }
+
+.feedback {
+    color: #ffffff;
+    border-style: solid;
+    border-radius: 30px;
+    border-color: #8e5bb8;
+    background-color: #d097ff; 
+    padding: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.feedback:hover {
+    padding: 8px;
+    background-color: #bf72ff;
+    border-color: #8c00ff;
+}
