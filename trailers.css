@@ -405,3 +405,20 @@ body {
 .navbar li{
     float: left;
 }
+
+.Signup {
+    color: #ffffff;
+    border-style: solid;
+    border-radius: 30px;
+    border-color: #d19002;
+    background-color: #ffbe68; 
+    padding: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.Signup:hover {
+    padding: 8px;
+    background-color: #ff9900;
+    border-color: #925800;
+}
