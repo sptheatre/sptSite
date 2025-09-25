@@ -19,7 +19,7 @@ body {
 /* Hero Section */
 .hero {
     position: relative;
-    background: linear-gradient(to right, #173c0e, rgb(94, 163, 77), #173c0e);
+    background: linear-gradient(to right, #ff6600, #ffae52, #ff6600);
     color: white;
     overflow: hidden;
 }
@@ -34,7 +34,7 @@ body {
     position: relative;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 96px 16px;
+    padding: 50px 10px;
 }
 
 .hero-text {
@@ -49,7 +49,7 @@ body {
     font-weight: 700;
     line-height: 1;
     margin-bottom: 24px;
-    background: linear-gradient(to right, #69ff5e, #c7fac3, #69ff5e);
+    background: linear-gradient(to right, #ff8800, #ff8800, #ff8800);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -206,7 +206,7 @@ body {
 
 .card-description {
     font-size: 14px;
-    font-style: italic; 
+    font-style: italic;
     line-height: 1.43;
     color: #64748b;
     padding-bottom: 3%;
@@ -262,19 +262,19 @@ body {
     .hero-title {
         font-size: 48px;
     }
-    
+
     .hero-subtitle {
         font-size: 20px;
     }
-    
+
     .hero-content {
         padding: 64px 16px;
     }
-    
+
     .section-title {
         font-size: 28px;
     }
-    
+
     .shows-grid {
         grid-template-columns: 1fr;
         gap: 24px;
@@ -285,72 +285,72 @@ body {
     .hero-title {
         font-size: 36px;
     }
-    
+
     .hero-subtitle {
         font-size: 18px;
     }
 }
 
-/* From Uiverse.io by 0x-Sarthak */ 
+/* From Uiverse.io by 0x-Sarthak */
 .cta {
-  position: relative;
-  margin: auto;
-  padding: 11.5px 18px;
-  transition: all 0.2s ease;
-  border: 3px solid #0099b4;
-  border-radius: 50px;
-  background: #00bfdd;
-  cursor: pointer;
+    position: relative;
+    margin: auto;
+    padding: 11.5px 18px;
+    transition: all 0.2s ease;
+    border: 3px solid #0099b4;
+    border-radius: 50px;
+    background: #00bfdd;
+    cursor: pointer;
 }
 
 .cta:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: block;
-  border-radius: 50px;
-  background: white;
-  width: 45px;
-  height: 45px;
-  transition: all 0.8s ease;
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    border-radius: 50px;
+    background: white;
+    width: 45px;
+    height: 45px;
+    transition: all 0.8s ease;
 }
 
 .cta span {
-  position: relative;
-  font-family: Montserrat;
-  font-size: 18px;
-  color: white;
-  font-weight: 400;
-  letter-spacing: 0.05em;
+    position: relative;
+    font-family: Montserrat;
+    font-size: 18px;
+    color: white;
+    font-weight: 400;
+    letter-spacing: 0.05em;
 }
 
 .cta svg {
-  position: relative;
-  top: 0;
-  margin-left: 10px;
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke: white;
-  stroke-width: 2;
-  transform: translateX(-5px);
-  transition: all 0.5s ease;
+    position: relative;
+    top: 0;
+    margin-left: 10px;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: white;
+    stroke-width: 2;
+    transform: translateX(-5px);
+    transition: all 0.5s ease;
 }
 
 .cta:hover:before {
-  width: 100%;
-  background: #1c1c1c;
+    width: 100%;
+    background: #1c1c1c;
 }
 
 .cta:hover svg {
-  transform: translateX(0);
-  transition: all 2s ease;
+    transform: translateX(0);
+    transition: all 2s ease;
 }
 
 .cta:active {
-  transform: scale(0.95);
-  transition: all 2s ease;
+    transform: scale(0.95);
+    transition: all 2s ease;
 }
 
 .align-br {
@@ -369,7 +369,7 @@ body {
     border-style: solid;
     border-radius: 30px;
     border-color: #8e5bb8;
-    background-color: #d097ff; 
+    background-color: #d097ff;
     padding: 5px;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -386,7 +386,7 @@ body {
     border-style: solid;
     border-radius: 30px;
     border-color: #d19002;
-    background-color: #ffbe68; 
+    background-color: #ffbe68;
     padding: 5px;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -398,7 +398,7 @@ body {
     border-color: #925800;
 }
 
-.navbar ul{
+.navbar ul {
     list-style-type: none;
     background-color: #2b2b2b;
     padding: 0px;
@@ -406,7 +406,7 @@ body {
     overflow: hidden;
 }
 
-.navbar a{
+.navbar a {
     color: #ffffff;
     text-decoration: none;
     padding: 15px;
@@ -414,10 +414,10 @@ body {
     text-align: center;
 }
 
-.navbar a:hover{
+.navbar a:hover {
     background-color: #1b1b1b;
 }
 
-.navbar li{
+.navbar li {
     float: left;
 }
