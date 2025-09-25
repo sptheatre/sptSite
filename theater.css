@@ -1,3 +1,13 @@
+/* Scalable image for Puffs show card */
+.scalable-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
 /* Reset and base styles */
 * {
     margin: 0;
