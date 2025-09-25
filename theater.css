@@ -246,6 +246,11 @@ body {
     color: #0f172a;
 }
 
+.link{
+    text-decoration: none;
+    color: inherit;
+}
+
 .contact-us {
     font-size: 30px;
     display: flex;
