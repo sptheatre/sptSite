@@ -467,7 +467,7 @@ body {
     border-color: #925800;
 }
 
-.navbar ul {
+.navbar ul{
     list-style-type: none;
     background-color: #2b2b2b;
     padding: 0px;
@@ -475,7 +475,7 @@ body {
     overflow: hidden;
 }
 
-.navbar a {
+.navbar a{
     color: #ffffff;
     text-decoration: none;
     padding: 15px;
@@ -483,10 +483,10 @@ body {
     text-align: center;
 }
 
-.navbar a:hover {
+.navbar a:hover{
     background-color: #1b1b1b;
 }
 
-.navbar li {
+.navbar li{
     float: left;
 }

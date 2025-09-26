@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <link rel="icon" type="image/x-icon" href="TabIcon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcement Login</title>
+    <link rel="stylesheet" href="theater.css">
+    <link rel="stylesheet" href="Login.css">
+</head>
+<body> 
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="https://cur8.com/projects/40174?action=donation" target="_blank" rel="noopener noreferrer">Donate</a></li>
+            <li><a href="Newsletter.html">Newsletter</a></li>
+            <li><a href="Announcements.html">Announcements</a></li>
+        </ul>
+    </nav>
+
+  <div class="login-container">
+    <form id="loginForm" autocomplete="off">
+      <h2>Login</h2>
+      <div class="login-row">
+        <input type="password" id="password" name="password" placeholder="Enter password" required autofocus>
+        <button type="submit">Login</button>
+      </div>
+      <label style="display:block; margin: 0.5rem 0 1rem 0; font-size:0.95em;">
+        <input type="checkbox" id="showPassword"> Show password
+      </label>
+      <div id="loginMessage"></div>
+    </form>
+  </div>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const password = document.getElementById('password').value;
+      const message = document.getElementById('loginMessage');
+      if (password === 'Room607!') {
+        message.style.color = 'green';
+        message.textContent = 'Login successful! Redirecting...';
+        setTimeout(function() {
+          window.location.href = 'CreateAnnouncement.html';
+        }, 800);
+      } else {
+        message.style.color = 'red';
+        message.textContent = 'Incorrect password.';
+      }
+    });
+    document.getElementById('showPassword').addEventListener('change', function() {
+      const pwd = document.getElementById('password');
+      pwd.type = this.checked ? 'text' : 'password';
+    });
+  </script>
+</body>
+</html>

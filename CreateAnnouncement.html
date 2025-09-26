@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Announcement</title>
+    <link rel="stylesheet" href="theater.css">
+    <link rel="stylesheet" href="Login.css">
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="https://cur8.com/projects/40174?action=donation" target="_blank" rel="noopener noreferrer">Donate</a></li>
+            <li><a href="Newsletter.html">Newsletter</a></li>
+            <li><a href="Announcements.html">Announcements</a></li>
+        </ul>
+    </nav>
+    <div class="login-container">
+        <form id="announcementForm" autocomplete="off">
+            <h2>Create Announcement</h2>
+            <input type="text" id="announcementName" name="name" placeholder="Your name" required style="width: 100%; margin-bottom: 1rem; font-size: 1.1em;">
+            <input type="text" id="announcementTitle" name="title" placeholder="Title" required style="width: 100%; margin-bottom: 1rem; font-size: 1.1em;">
+            <textarea id="announcementBody" name="body" placeholder="Announcement body..." required style="width: 100%; height: 120px; margin-bottom: 1rem; resize: none; font-size: 1.1em;"></textarea>
+            <style>
+            #announcementName::placeholder,
+            #announcementTitle::placeholder,
+            #announcementBody::placeholder {
+                font-size: 1.1em;
+            }
+            </style>
+            <input type="hidden" id="editIndex">
+            <button type="submit">Post Announcement</button>
+            <div id="announcementMessage"></div>
+        </form>
+        <div id="announcementList" style="width:100%;margin-top:2rem;"></div>
+    </div>
+    <script>
+        function formatTime(iso) {
+            const d = new Date(iso);
+            return d.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' });
+        }
+
+        function renderAnnouncements() {
+            const list = document.getElementById('announcementList');
+            let announcements = JSON.parse(localStorage.getItem('announcements') || '[]');
+            if (!announcements.length) {
+                list.innerHTML = '<div style="text-align:center;color:#888;">No announcements yet.</div>';
+                return;
+            }
+            list.innerHTML = announcements.map((a, i) => `
+                <div class="announcement" style="position:relative;margin-bottom:1.5rem;padding:1rem 1.5rem;background:#fafafa;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+                    <div style="position:absolute;top:8px;right:12px;font-size:0.8em;color:#666;background:#eee;padding:2px 8px;border-radius:6px;">${formatTime(a.date)}</div>
+                    <div class="announcement-title" style="font-weight:600;font-size:1.1em;">${a.title}</div>
+                    <div class="announcement-name" style="font-size:0.95em;color:#444;margin-bottom:0.3em;">${a.name ? 'By: ' + a.name : ''}</div>
+                    <div class="announcement-body" style="margin:0.5em 0 0.7em 0;">${a.body}</div>
+                    <button onclick="editAnnouncement(${i})" style="margin-right:0.5em;">Edit</button>
+                    <button onclick="deleteAnnouncement(${i})" style="background:#c00;color:#fff;">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function saveAnnouncements(arr) {
+            localStorage.setItem('announcements', JSON.stringify(arr));
+            renderAnnouncements();
+        }
+
+        window.editAnnouncement = function(idx) {
+            let announcements = JSON.parse(localStorage.getItem('announcements') || '[]');
+            const a = announcements[idx];
+            document.getElementById('announcementName').value = a.name || '';
+            document.getElementById('announcementTitle').value = a.title;
+            document.getElementById('announcementBody').value = a.body;
+            document.getElementById('editIndex').value = idx;
+            document.getElementById('announcementMessage').textContent = 'Editing announcement...';
+            document.getElementById('announcementMessage').style.color = '#333';
+        }
+
+        window.deleteAnnouncement = function(idx) {
+            let announcements = JSON.parse(localStorage.getItem('announcements') || '[]');
+            if (!confirm('Delete this announcement?')) return;
+            announcements.splice(idx, 1);
+            saveAnnouncements(announcements);
+            document.getElementById('announcementMessage').textContent = 'Announcement deleted.';
+            document.getElementById('announcementMessage').style.color = 'red';
+            document.getElementById('announcementForm').reset();
+            document.getElementById('editIndex').value = '';
+        }
+
+        document.getElementById('announcementForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('announcementName').value.trim();
+            const title = document.getElementById('announcementTitle').value.trim();
+            const body = document.getElementById('announcementBody').value.trim();
+            const editIdx = document.getElementById('editIndex').value;
+            if (!name || !title || !body) {
+                document.getElementById('announcementMessage').textContent = 'All fields are required.';
+                document.getElementById('announcementMessage').style.color = 'red';
+                return;
+            }
+            let announcements = JSON.parse(localStorage.getItem('announcements') || '[]');
+            if (editIdx !== '') {
+                // Edit mode
+                announcements[editIdx] = { ...announcements[editIdx], name, title, body };
+                document.getElementById('announcementMessage').textContent = 'Announcement updated!';
+                document.getElementById('announcementMessage').style.color = 'green';
+            } else {
+                // New announcement
+                announcements.unshift({ name, title, body, date: new Date().toISOString() });
+                document.getElementById('announcementMessage').textContent = 'Announcement posted!';
+                document.getElementById('announcementMessage').style.color = 'green';
+            }
+            saveAnnouncements(announcements);
+            document.getElementById('announcementForm').reset();
+            document.getElementById('editIndex').value = '';
+        });
+
+        renderAnnouncements();
+    </script>
+</body>
+</html>

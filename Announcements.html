@@ -11,6 +11,7 @@
     <nav class="navbar">
         <ul>
         <li><a href="index.html">Home</a></li>
+        <li><a href="Login.html">Create Announcement</a></li>
         <li><a href="https://cur8.com/projects/40174?action=donation" target="_blank" rel="noopener noreferrer">Donate</a></li>
         <li><a href="Newsletter.html">Newsletter</a></li>
         </ul>
@@ -32,6 +33,7 @@
         <section class="shows-section">
             <div class="container">
                 <div class="announcements-container">
+                    <div id="dynamic-announcements"></div>
                     <div class="announcement">
                         <div class="announcement-title">Welcome to our website! - Dominick Steinmetz</div>
                         <div class="announcement-body">We have put in so much effort to get this website up and going and have been working for a few months now. If you anything you would like to put on the site or any ideas please let us know through the feedback section. Thank you so much.</div>
@@ -44,6 +46,38 @@
                 <a class="Signup" href="NewsletterSignUp.html">Signup for the newsletter</a>
              </div>
         </section>
-    </div>
+        <script>
+            // Load announcements from localStorage and display them with timestamp
+            function formatTime(iso) {
+                if (!iso) return '';
+                const d = new Date(iso);
+                return d.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' });
+            }
+            function renderAnnouncements() {
+                const container = document.getElementById('dynamic-announcements');
+                if (!container) return;
+                let announcements = [];
+                try {
+                    announcements = JSON.parse(localStorage.getItem('announcements') || '[]');
+                } catch (e) {}
+                container.innerHTML = '';
+                if (announcements.length === 0) return;
+                announcements.forEach(function(a) {
+                    const div = document.createElement('div');
+                    div.className = 'announcement';
+                    div.innerHTML = `
+                        <div style="position:absolute;top:18px;right:12px;font-size:0.8em;color:#666;background:#eee;padding:2px 8px;border-radius:6px;min-width:90px;text-align:right;">${formatTime(a.date)}</div>
+                        <div class="announcement-title" style="padding-right:110px; min-height: 1.8em;">${a.title}</div>
+                        <div class="announcement-name" style="padding-right:110px;font-size:0.95em;color:#222;margin-bottom:0.3em;font-weight:600;">${a.name ? 'By: ' + a.name : ''}</div>
+                        <div class="announcement-body" style="padding-right:110px;">${a.body}</div>
+                    `;
+                    div.style.position = 'relative';
+                    div.style.minHeight = '3.5em';
+                    container.appendChild(div);
+                });
+            }
+            renderAnnouncements();
+        </script>
+        </div>
 </body>
 </html>
