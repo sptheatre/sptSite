@@ -87,32 +87,33 @@
             document.getElementById('editIndex').value = '';
         }
 
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyPF8ysY2qeK31JWVC6bGt8Jg28gMhJ_K6JlM1CYkvhMxPWpOwerttjcMDFkYcgFR7x/exec';
         document.getElementById('announcementForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('announcementName').value.trim();
             const title = document.getElementById('announcementTitle').value.trim();
             const body = document.getElementById('announcementBody').value.trim();
-            const editIdx = document.getElementById('editIndex').value;
             if (!name || !title || !body) {
                 document.getElementById('announcementMessage').textContent = 'All fields are required.';
                 document.getElementById('announcementMessage').style.color = 'red';
                 return;
             }
-            let announcements = JSON.parse(localStorage.getItem('announcements') || '[]');
-            if (editIdx !== '') {
-                // Edit mode
-                announcements[editIdx] = { ...announcements[editIdx], name, title, body };
-                document.getElementById('announcementMessage').textContent = 'Announcement updated!';
-                document.getElementById('announcementMessage').style.color = 'green';
-            } else {
-                // New announcement
-                announcements.unshift({ name, title, body, date: new Date().toISOString() });
+            // Send to Google Apps Script web app
+            fetch(WEB_APP_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, title, body, date: new Date().toISOString() })
+            })
+            .then(res => res.ok ? res.json() : Promise.reject(res))
+            .then(data => {
                 document.getElementById('announcementMessage').textContent = 'Announcement posted!';
                 document.getElementById('announcementMessage').style.color = 'green';
-            }
-            saveAnnouncements(announcements);
-            document.getElementById('announcementForm').reset();
-            document.getElementById('editIndex').value = '';
+                document.getElementById('announcementForm').reset();
+            })
+            .catch(() => {
+                document.getElementById('announcementMessage').textContent = 'Failed to post announcement.';
+                document.getElementById('announcementMessage').style.color = 'red';
+            });
         });
 
         renderAnnouncements();
