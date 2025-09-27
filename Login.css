@@ -127,3 +127,20 @@ body {
     background-color: #72e76e;
     border-color: #30cf00;
 }
+
+.Request {
+    color: #ffffff;
+    border-style: solid;
+    border-radius: 30px;
+    border-color: #bd3030;
+    background-color: rgb(255, 151, 151);
+    padding: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.Request:hover {
+    padding: 8px;
+    background-color: #f32d2d;
+    border-color: #b60000;
+}
