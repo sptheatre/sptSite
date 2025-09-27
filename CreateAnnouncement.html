@@ -87,7 +87,7 @@
             document.getElementById('editIndex').value = '';
         }
 
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxQ80WWN-0Oyf6hpoWOpHGdacuwF-A41Az9v5278GiZCUtT29Y8Ubj_Jm92GrImybDa/exec';
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzArI_qoZbxePfr2m8BtXSW5Bxqp1o2fpRspStS1KfY8HyCTgcNj9ZrYcPN31FCfeUL/exec';
         document.getElementById('announcementForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('announcementName').value.trim();
@@ -98,11 +98,15 @@
                 document.getElementById('announcementMessage').style.color = 'red';
                 return;
             }
-            // Send to Google Apps Script web app
+            // Send as form data to avoid CORS preflight
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('title', title);
+            formData.append('body', body);
+            formData.append('date', new Date().toISOString());
             fetch(WEB_APP_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, title, body, date: new Date().toISOString() })
+                body: formData
             })
             .then(res => res.ok ? res.json() : Promise.reject(res))
             .then(data => {
