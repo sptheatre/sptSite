@@ -36,6 +36,9 @@
         <div id="announcementList" style="width:100%;margin-top:2rem;"></div>
     </div>
     <script>
+
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxXvGzOagGinncDEzj5X1uV-iupdcZ22bEzUOFkFDhR-IXTbYut9eBZ6PYS5oCeV70b/exec';
+
         function formatTime(iso) {
             const d = new Date(iso);
             return d.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' });
@@ -43,51 +46,42 @@
 
         function renderAnnouncements() {
             const list = document.getElementById('announcementList');
-            let announcements = JSON.parse(localStorage.getItem('announcements') || '[]');
-            if (!announcements.length) {
-                list.innerHTML = '<div style="text-align:center;color:#888;">No announcements yet.</div>';
-                return;
-            }
-            list.innerHTML = announcements.map((a, i) => `
-                <div class="announcement" style="position:relative;margin-bottom:1.5rem;padding:1rem 1.5rem;background:#fafafa;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
-                    <div style="position:absolute;top:8px;right:12px;font-size:0.8em;color:#666;background:#eee;padding:2px 8px;border-radius:6px;">${formatTime(a.date)}</div>
-                    <div class="announcement-title" style="font-weight:600;font-size:1.1em;">${a.title}</div>
-                    <div class="announcement-name" style="font-size:0.95em;color:#444;margin-bottom:0.3em;">${a.name ? 'By: ' + a.name : ''}</div>
-                    <div class="announcement-body" style="margin:0.5em 0 0.7em 0;">${a.body}</div>
-                    <button onclick="editAnnouncement(${i})" style="margin-right:0.5em;">Edit</button>
-                    <button onclick="deleteAnnouncement(${i})" style="background:#c00;color:#fff;">Delete</button>
-                </div>
-            `).join('');
+            list.innerHTML = '<div style="text-align:center;color:#888;">Loading...</div>';
+            fetch(WEB_APP_URL)
+                .then(response => response.json())
+                .then(announcements => {
+                    list.innerHTML = '';
+                    if (!announcements || !announcements.length) {
+                        list.innerHTML = '<div style="text-align:center;color:#888;">No announcements yet.</div>';
+                        return;
+                    }
+                    list.innerHTML = announcements.map((a, i) => {
+                        const rowNum = i + 2; // Row 1 is header, so first announcement is row 2
+                        // If edited, show edited time box
+                        let editedBox = '';
+                        if (a.edited && a.edited !== '') {
+                            editedBox = `<div style="position:absolute;bottom:8px;right:12px;font-size:0.8em;color:#666;background:#eee;padding:2px 8px;border-radius:6px;">edited: ${formatTime(a.edited)}</div>`;
+                        }
+                        return `
+                            <div class="announcement" style="position:relative;margin-bottom:1.5rem;padding:1rem 1.5rem;background:#fafafa;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+                                <div style="position:absolute;top:8px;right:12px;font-size:0.8em;color:#666;background:#eee;padding:2px 8px;border-radius:6px;">${formatTime(a.date)}</div>
+                                <div class="announcement-title" style="font-weight:600;font-size:1.1em;">${a.title}</div>
+                                <div class="announcement-name" style="font-size:0.95em;color:#444;margin-bottom:0.3em;">${a.name ? 'By: ' + a.name : ''}</div>
+                                <div class="announcement-body" style="margin:0.5em 0 0.7em 0;">${a.body}</div>
+                                <button onclick="editAnnouncement(${rowNum}, '${a.name.replace(/'/g, "&#39;")}', '${a.title.replace(/'/g, "&#39;")}', '${a.body.replace(/'/g, "&#39;")}', '${a.date}', '${a.edited ? a.edited : ''}')" style="margin-right:0.5em;">Edit</button>
+                                <button onclick="deleteAnnouncement(${rowNum})" style="background:#c00;color:#fff;">Delete</button>
+                                ${editedBox}
+                            </div>
+                        `;
+                    }).join('');
+                })
+                .catch(() => {
+                    list.innerHTML = '<div style="text-align:center;color:#c00;">Failed to load announcements.</div>';
+                });
         }
 
-        function saveAnnouncements(arr) {
-            localStorage.setItem('announcements', JSON.stringify(arr));
-            renderAnnouncements();
-        }
-
-        window.editAnnouncement = function(idx) {
-            let announcements = JSON.parse(localStorage.getItem('announcements') || '[]');
-            const a = announcements[idx];
-            document.getElementById('announcementName').value = a.name || '';
-            document.getElementById('announcementTitle').value = a.title;
-            document.getElementById('announcementBody').value = a.body;
-            document.getElementById('editIndex').value = idx;
-            document.getElementById('announcementMessage').textContent = 'Editing announcement...';
-            document.getElementById('announcementMessage').style.color = '#333';
-        }
-
-        window.deleteAnnouncement = function(idx) {
-            let announcements = JSON.parse(localStorage.getItem('announcements') || '[]');
-            if (!confirm('Delete this announcement?')) return;
-            announcements.splice(idx, 1);
-            saveAnnouncements(announcements);
-            document.getElementById('announcementMessage').textContent = 'Announcement deleted.';
-            document.getElementById('announcementMessage').style.color = 'red';
-            document.getElementById('announcementForm').reset();
-            document.getElementById('editIndex').value = '';
-        }
-
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzArI_qoZbxePfr2m8BtXSW5Bxqp1o2fpRspStS1KfY8HyCTgcNj9ZrYcPN31FCfeUL/exec';
+        let editingRowNum = null;
+        let originalDate = null;
         document.getElementById('announcementForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('announcementName').value.trim();
@@ -98,27 +92,73 @@
                 document.getElementById('announcementMessage').style.color = 'red';
                 return;
             }
-            // Send as form data to avoid CORS preflight
             const formData = new FormData();
             formData.append('name', name);
             formData.append('title', title);
             formData.append('body', body);
-            formData.append('date', new Date().toISOString());
+            if (editingRowNum) {
+                formData.append('action', 'edit');
+                formData.append('rowNum', editingRowNum);
+                formData.append('date', originalDate); // preserve original date
+                formData.append('edited', new Date().toISOString()); // new edited time
+            } else {
+                formData.append('date', new Date().toISOString());
+            }
             fetch(WEB_APP_URL, {
                 method: 'POST',
                 body: formData
             })
-            .then(res => res.ok ? res.json() : Promise.reject(res))
-            .then(data => {
-                document.getElementById('announcementMessage').textContent = 'Announcement posted!';
-                document.getElementById('announcementMessage').style.color = 'green';
-                document.getElementById('announcementForm').reset();
+            .then(res => {
+                if (res.ok) {
+                    document.getElementById('announcementMessage').textContent = editingRowNum ? 'Announcement updated!' : 'Announcement posted!';
+                    document.getElementById('announcementMessage').style.color = 'green';
+                    document.getElementById('announcementForm').reset();
+                    editingRowNum = null;
+                    originalDate = null;
+                    renderAnnouncements();
+                } else {
+                    document.getElementById('announcementMessage').textContent = 'Failed to post announcement.';
+                    document.getElementById('announcementMessage').style.color = 'red';
+                }
             })
             .catch(() => {
                 document.getElementById('announcementMessage').textContent = 'Failed to post announcement.';
                 document.getElementById('announcementMessage').style.color = 'red';
             });
         });
+
+        window.editAnnouncement = function(rowNum, name, title, body, date, edited) {
+            document.getElementById('announcementName').value = name;
+            document.getElementById('announcementTitle').value = title;
+            document.getElementById('announcementBody').value = body;
+            editingRowNum = rowNum;
+            originalDate = date;
+            document.getElementById('announcementMessage').textContent = 'Editing announcement...';
+            document.getElementById('announcementMessage').style.color = '#333';
+        };
+
+        window.deleteAnnouncement = function(rowNum) {
+            if (!confirm('Delete this announcement?')) return;
+            const formData = new FormData();
+            formData.append('action', 'delete');
+            formData.append('rowNum', rowNum);
+            fetch(WEB_APP_URL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.ok ? res.json() : Promise.reject(res))
+            .then(data => {
+                document.getElementById('announcementMessage').textContent = 'Announcement deleted.';
+                document.getElementById('announcementMessage').style.color = 'red';
+                document.getElementById('announcementForm').reset();
+                editingRowNum = null;
+                renderAnnouncements();
+            })
+            .catch(() => {
+                document.getElementById('announcementMessage').textContent = 'Failed to delete announcement.';
+                document.getElementById('announcementMessage').style.color = 'red';
+            });
+        };
 
         renderAnnouncements();
     </script>
