@@ -108,3 +108,22 @@ body {
 .navbar li {
     float: left;
 }
+
+.feedback {
+    color: #0b5f00;
+    border-style: solid;
+    border-radius: 30px;
+    border-color: #5bc046;
+    background-color: #9be0a1; 
+    padding-left: 5px;
+	padding-right: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.feedback:hover {
+    padding-left: 8px;
+    padding-right: 8px;
+    background-color: #72e76e;
+    border-color: #30cf00;
+}
