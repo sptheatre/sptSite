@@ -507,3 +507,11 @@ body {
 .navbar li{
     float: left;
 }
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 24px;
+}
