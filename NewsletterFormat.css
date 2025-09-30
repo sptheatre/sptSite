@@ -1,17 +1,4 @@
-.feedback {
-    font-size: 1.15rem;
-    padding: 0.5em 1.5em;
-    border-radius: 8px;
-    background: #2b2b2b;
-    color: #fff;
-    display: inline-block;
-    text-decoration: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-    transition: background 0.2s;
-}
-.feedback:hover {
-    background: #173c0e;
-}
+/* NewsletterFormat.css */
 .pdf-button-container {
     margin-top: 25px;
     margin-bottom: 40px;
@@ -129,13 +116,12 @@ body {
     border-radius: 30px;
     border-color: #8e5bb8;
     background-color: #d097ff; 
-    padding: 5px;
+    padding: 7px;
     text-decoration: none;
     transition: all 0.3s ease;
 }
 
 .feedback:hover {
-    padding: 8px;
     background-color: #bf72ff;
     border-color: #8e04ff;
 }

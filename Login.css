@@ -236,7 +236,6 @@ body {
 }
 
 .Request:hover {
-    padding: 8px;
     background-color: #f32d2d;
     border-color: #b60000;
 }

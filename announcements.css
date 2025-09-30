@@ -1,3 +1,11 @@
+/* Responsive button container for wrapping */
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 24px;
+}
 /* Announcement UI Styles */
 /* Announcement UI Styles */
 .announcement {
@@ -445,7 +453,6 @@ body {
 }
 
 .feedback:hover {
-    padding: 8px;
     background-color: #bf72ff;
     border-color: #8e04ff;
 }
@@ -462,7 +469,6 @@ body {
 }
 
 .Request:hover {
-    padding: 8px;
     background-color: #f32d2d;
     border-color: #b60000;
 }
@@ -479,7 +485,6 @@ body {
 }
 
 .Signup:hover {
-    padding: 8px;
     background-color: #ff9900;
     border-color: #925800;
 }
@@ -506,12 +511,4 @@ body {
 
 .navbar li{
     float: left;
-}
-
-.buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
-    margin-top: 24px;
 }
