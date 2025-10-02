@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <link rel="icon" type="image/x-icon" href="TabIcon.png">
+    <link rel="stylesheet" href="theater.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        @media (max-width: 600px) {
+            .coming-soon-message {
+                padding: 12px 8vw;
+                max-width: 98vw;
+                border-radius: 5vw;
+            }
+            .coming-soon-message h1 {
+                font-size: 2rem;
+            }
+            .coming-soon-message p {
+                font-size: 1.1rem;
+            }
+            .back-home-btn {
+                font-size: 1rem;
+                padding: 8px 18px;
+            }
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .animated-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            background: radial-gradient(circle at 20% 30%, #ffb2ee 0%, transparent 60%),
+                        radial-gradient(circle at 80% 70%, #e9a0ff 0%, transparent 60%),
+                        radial-gradient(circle at 50% 80%, #001aff 0%, transparent 60%),
+                        radial-gradient(circle at 70% 20%, #9bf5f8 0%, transparent 60%),
+                        linear-gradient(120deg, #f8e1ff 0%, #b5ead7 100%);
+            animation: swirl 10s linear infinite;
+        }
+        @keyframes swirl {
+            0% {
+                filter: hue-rotate(0deg) blur(0px);
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                filter: hue-rotate(120deg) blur(2px);
+                transform: scale(1.05) rotate(2deg);
+            }
+            100% {
+                filter: hue-rotate(360deg) blur(0px);
+                transform: scale(1) rotate(-1deg);
+            }
+        }
+        .coming-soon-message {
+            background: rgba(255,255,255,0.85);
+            border-radius: 2vw;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            padding: clamp(16px, 2vw, 32px) clamp(24px, 6vw, 96px);
+            text-align: center;
+            min-width: 220px;
+            max-width: 540px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: box-shadow 0.2s, transform 0.2s;
+            z-index: 1;
+        }
+        .coming-soon-message:hover {
+            box-shadow: 0 16px 48px rgba(124, 58, 237, 0.18), 0 2px 8px rgba(0,0,0,0.18);
+            transform: scale(1.03);
+        }
+        .coming-soon-message h1 {
+            font-size: clamp(1.5rem, 6vw, 2.8rem);
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 600;
+            color: #7c3aed;
+            margin-bottom: 0;
+            line-height: 1.1;
+            letter-spacing: 0.01em;
+        }
+        .coming-soon-message p {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 400;
+            color: #444;
+            margin-top: 0;
+            line-height: 1.1;
+            letter-spacing: 0.01em;
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    <div class="coming-soon-message">
+        <h1>Not ready yet!</h1>
+        <p>Coming soon...</p>
+        <a href="index.html" style="padding-top: 7.5px; text-decoration: none;">← Back</a>
+    </div>
+</body>
+</html>
